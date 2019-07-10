@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -68,5 +69,23 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+    /**
+     * Register nuw user through api register endpoint
+     *
+     * @param Request $request
+     * @return Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $requestData = $request->all();
+        $validator = $this->validator($requestData);
+        if ($validator->fails()) {
+            $response = ["status" => "error", "message" => "Registeration failed", "errors" => $validator->messages()];
+            return response($response, 400, ["Content-Type" => "application/json"]);
+        }
+        $user = $this->create($requestData);
+        $response = ["status" => "success", "message" => "Registeration success", "data" => ["user" => $user]];
+        return response($response, 200, ["Content-Type" => "application/json"]);
     }
 }
