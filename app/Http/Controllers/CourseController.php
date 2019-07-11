@@ -70,9 +70,9 @@ class CourseController extends Controller
     public function seed()
     {
         //i use this $force_run_job  on heroku because i dont want to add my card to enable queue
-        $force_run_job = config('app.force_run_job');
-        if ($force_run_job) {
-            factory(App\Course::class, 50)->create();
+        $forceRunJob = config('app.force_run_job');
+        if ($forceRunJob) {
+            factory(Course::class, 50)->create();
         } else {
             SeedCourseTable::dispatch();
         }
