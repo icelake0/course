@@ -38,18 +38,10 @@ A Laravel  api resource appication for courses
 ## Your will get access_token required for the following endpoint from the Login endpoint
 - Seed Course Table
     Method: GET
-    URL: http://icecourse.herokuapp.com/oauth/token
+    URL: http://icecourse.herokuapp.com/courses/seed
     HEADER: Content-Type : application/json
             Authorization : Bearer <access_token>
-    BODY: 
-    {
-        "grant_type":"password",
-        "client_id":"2",
-        "client_secret":"aKkYW8iRS67ZbMZWRb4QHJGnrZ0nhGJdsC5WWyBw",
-        "username":"tester1@gmail.com",  //your email
-        "password":"password", //your password
-        "scope":"*"
-    }
+   
 
 - Register Courses
     Method: POST
