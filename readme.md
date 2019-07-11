@@ -8,7 +8,7 @@ A Laravel  api resource appication for courses
 - Note the client_secret and client_id generated for password grant
 - - App Domain http://icecourse.herokuapp.com
 - Posman Collection https://www.getpostman.com/collections/ed033f256485dd7c6624
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/ed033f256485dd7c6624)
+- [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/ed033f256485dd7c6624)
 
 - Register
     Method: POST
