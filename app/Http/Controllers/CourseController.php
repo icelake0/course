@@ -8,7 +8,6 @@ use App\Jobs\SeedCourseTable;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\UserRegisterCourse;
 use App\Http\Resources\CourseResource;
-use Illuminate\Support\Facades\Artisan;
 
 class CourseController extends Controller
 {
@@ -72,11 +71,8 @@ class CourseController extends Controller
     {
         //i use this $force_run_job  on heroku because i dont want to add my card to enable queue
         $force_run_job = config('app.force_run_job');
-        dd($force_run_job);
         if ($force_run_job) {
-            Artisan::call('db:seed', [
-                '--class' => 'CourseTableSeeder', //the seeder uses the course factory
-            ]);
+            factory(App\Course::class, 50)->create();
         } else {
             SeedCourseTable::dispatch();
         }
