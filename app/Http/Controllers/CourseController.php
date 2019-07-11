@@ -8,12 +8,13 @@ use App\Jobs\SeedCourseTable;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\UserRegisterCourse;
 use App\Http\Resources\CourseResource;
+use Illuminate\Support\Facades\Artisan;
 
 class CourseController extends Controller
 {
     public $course;
 
-     /**
+    /**
      * Create a new CourseController instance.
      *
      * @return void
@@ -35,7 +36,7 @@ class CourseController extends Controller
         $links = json_decode($courses->toJson());
         unset($links->data);
         $courseCollection =  CourseResource::collection($courses);
-        $response = ["status" => "success", "message" => "Courses List", "data" => ["courses" => $courseCollection], 'links'=>$links];
+        $response = ["status" => "success", "message" => "Courses List", "data" => ["courses" => $courseCollection], 'links' => $links];
         return response($response, 200, ["Content-Type" => "application/json"]);
     }
     /**
@@ -69,7 +70,15 @@ class CourseController extends Controller
      */
     public function seed()
     {
-        SeedCourseTable::dispatch();
+        //i use this $force_run_job  on heroku because i dont want to add my card to enable queue
+        $force_run_job = config('app.force_run_job');
+        if ($force_run_job) {
+            Artisan::call('db:seed', [
+                '--class' => 'CourseTableSeeder', //the seeder uses the course factory
+            ]);
+        } else {
+            SeedCourseTable::dispatch();
+        }
         $response = ["status" => "success", "message" => "Course seed job dispatched", "data" => []];
         return response($response, 200, ["Content-Type" => "application/json"]);
     }

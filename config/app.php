@@ -123,6 +123,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'force_run_job' => env('FORCE_RUN_JOB',false),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
