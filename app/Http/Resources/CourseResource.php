@@ -15,8 +15,9 @@ class CourseResource extends JsonResource
     public function toArray($request)
     {
         $userId = auth()->user()->id;
-        $courseRegistered = $this->users()->where('user_id', $userId)->first();
-        $dateEnrolled = $courseRegistered ? $courseRegistered->pivot->created_at : null;
+        //Note that User is eager loaded in the controller
+        $enrolledUser = $this->users->firstWhere('id', $userId);
+        $dateEnrolled = $enrolledUser ? $enrolledUser->pivot->created_at : null;
         return [
             'id' => $this->id,
             'title' => $this->title,

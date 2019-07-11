@@ -18,9 +18,10 @@ use Illuminate\Http\Request;
 // });
 Route::group(['prefix' => 'v1'], function () {
     Route::post('/register', ['uses' => 'Auth\RegisterController@register', 'as' => 'api.v1.user.register']);
-    Route::get('/courses/seed', ['uses' => 'CourseController@seed', 'as' => 'api.v1.courses.seed']);
     Route::group(['middleware' => ['auth:api']], function () {
+        Route::get('/courses/seed', ['uses' => 'CourseController@seed', 'as' => 'api.v1.courses.seed']);
         Route::post('/courses/user/register', ['uses' => 'CourseController@userRegister', 'as' => 'api.v1.courses.user.register']);
         Route::get('/courses', ['uses' => 'CourseController@index', 'as' => 'api.v1.courses.index']);
+        Route::get('/courses/download/csv', ['uses' => 'CourseController@downloadCSV', 'as' => 'api.v1.courses.download.csv']);
     });
 });

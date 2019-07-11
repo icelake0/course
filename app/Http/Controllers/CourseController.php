@@ -8,6 +8,8 @@ use App\Jobs\SeedCourseTable;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\UserRegisterCourse;
 use App\Http\Resources\CourseResource;
+use App\Exports\CoursesExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CourseController extends Controller
 {
@@ -78,5 +80,13 @@ class CourseController extends Controller
         }
         $response = ["status" => "success", "message" => "Course seed job dispatched", "data" => []];
         return response($response, 200, ["Content-Type" => "application/json"]);
+    }
+    /**
+     * Download the course report as CSV
+     * @return \Illuminate\Http\Response
+     */
+    public function downloadCSV()
+    {
+        return Excel::download(new CoursesExport, 'courses.xlsx');
     }
 }
