@@ -3,9 +3,13 @@
 A Laravel  api resource appication for courses
 
 ## USE Guide
+- This solution uses laravel passport(password grant) to implement JWT
 - When Setting Up please run php artisan passport:install after all migrations
+- Note the client_secret and client_id generated for password grant
+- - App Domain http://icecourse.herokuapp.com
 - Posman Collection https://www.getpostman.com/collections/ed033f256485dd7c6624
-- [App URL](http://icecourse.herokuapp.com/)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/ed033f256485dd7c6624)
+
 - Register
     Method: POST
     URL: http://icecourse.herokuapp.com/api/v1/register
